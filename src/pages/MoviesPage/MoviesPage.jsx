@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import style from "./MoviesPage.module.css";
@@ -11,7 +11,7 @@ import Loader from "../../components/Loader/Loader";
 
 const MoviesPage = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchParams, setSearchParams] = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -50,17 +50,49 @@ const MoviesPage = () => {
     }
   }, [currentPage, searchQuery]);
 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <main>
-      <section>
-        <SearchBox></SearchBox>
-        <Toaster></Toaster>
-        <Loader />
-        <MovieList />
-        <div>
-          <button></button>
-          <button></button>
-        </div>
+      <section className={style.moviesSearch}>
+        <SearchBox onSubmit={(query) => setSearchParams({ search: query })} />
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{
+            className: style.toastTextCenter,
+          }}
+        />
+        {loading && <Loader />}
+        {searchResults.length !== 0 && <MovieList filmsList={searchResults} />}
+        {searchResults.length !== 0 && (
+          <div className={style.btnPaginationThumb}>
+            <button
+              className={style.btnPagination}
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <button
+              className={style.btnPagination}
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next Page
+            </button>
+          </div>
+        )}
       </section>
     </main>
   );
