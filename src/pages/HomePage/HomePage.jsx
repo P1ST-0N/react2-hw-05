@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { getFilmsTrendingAccess } from "../../js/films-api";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
+import style from "./HomePage.module.css";
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
@@ -28,8 +29,8 @@ const HomePage = () => {
   const memoizedFilms = useMemo(() => films, [films]);
 
   return (
-    <main>
-      <h1>Trending Today</h1>
+    <main className={style.mainSection}>
+      <h1 className={style.mainTitle}>Trending Today</h1>
       {loading && <Loader />}
       {/* Передаем memoizedFilms в MovieList */}
       <MovieList filmsList={memoizedFilms} />
