@@ -46,6 +46,10 @@ const MovieDetailsPage = () => {
     fetchData();
   }, [id]);
 
+  const formatDate = (date) => {
+    return format(new Date(date), "MMMM dd yyyy");
+  };
+
   const fallbackImage = {
     image:
       "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg",
@@ -56,7 +60,10 @@ const MovieDetailsPage = () => {
   return (
     <section className={style.movieDetails}>
       <Link to={backLinkHref}>
-        <button className={style.btnLink}></button>
+        <button className={style.btnLink}>
+          <GoArrowLeft size="20" />
+          Go Back
+        </button>
       </Link>
 
       {loading && <Loader />}
@@ -76,25 +83,54 @@ const MovieDetailsPage = () => {
               height="500"
             />
             <div>
-              <h2></h2>
-              <p></p>
-              <p>
-                <span></span>
+              <h2 className={style.movieDetailsTitle}>{film.original_title}</h2>
+              <p className={style.movieDetailsTagline}>{film.tagline}</p>
+              <p className={style.movieDetailsText}>
+                <span className={style.spanAccent}>Release date:</span>{" "}
+                {formatDate(film.release_date)}
               </p>
-              <div>
-                <p>
-                  <span></span>
-                </p>
-              </div>
-              <h3></h3>
-              <p></p>
-              <h3></h3>
-              <ul>{}</ul>
+              {userScore !== "0" && userScore !== null && (
+                <div className={style.movieDetailsScore}>
+                  <p className={style.movieDetailsText}>
+                    <span className={style.spanAccent}>User Score:</span>{" "}
+                    {userScore}&#37;
+                  </p>{" "}
+                  <span
+                    className={
+                      userScore < 60 ? style.iconSpilled : style.iconUpright
+                    }
+                  ></span>
+                </div>
+              )}
+              <h3 className={style.movieDetailsTitleFilm}>Overview</h3>
+              <p className={`${style.movieDetailsText} ${style.forLaptop}`}>
+                {film.overview}
+              </p>
+              <h3 className={style.movieDetailsTitleFilm}>Genres</h3>
+              <ul className={style.movieDetailsGenresList}>
+                {film.genres.map((genre) => (
+                  <li className={style.movieDetailsText} key={genre.id}>
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <nav>
-            <NavLink></NavLink>
-            <NavLink></NavLink>
+          <nav className={style.moreInfo}>
+            <NavLink
+              className={buildLinkClass(`/movies/${id}/cast`)}
+              to={"cast"}
+              state={location.state}
+            >
+              Cast
+            </NavLink>
+            <NavLink
+              className={buildLinkClass(`/movies/${id}/reviews`)}
+              to={"reviews"}
+              state={location.state}
+            >
+              Reviews
+            </NavLink>
           </nav>
           <Suspense>
             <Outlet />
