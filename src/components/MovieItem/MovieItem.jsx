@@ -12,7 +12,7 @@ const MovieItem = ({
   };
 
   const urlImg = `https://image.tmdb.org/t/p/w500/${poster_path}`;
-  const fallbackImage = "/src/img/image-not-found.jpg";
+  const fallbackImage = "../../assets/img/image-not-found.jpg";
   const voteAverage = Number(vote_average).toFixed(2);
 
   return (
