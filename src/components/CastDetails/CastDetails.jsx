@@ -5,7 +5,7 @@ import noMovieImg from "../../assets/img/image-not-found.jpg";
 import { getPersonDetails } from "../../js/films-api";
 
 const CastDetails = () => {
-  const { castId } = useParams();
+  const { id } = useParams();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,9 +15,9 @@ const CastDetails = () => {
       try {
         setLoading(true);
         //
-        console.log(castId);
+        console.log(id);
 
-        const data = await getPersonDetails(castId);
+        const data = await getPersonDetails(id);
 
         console.log(data);
 
@@ -29,7 +29,7 @@ const CastDetails = () => {
       }
     };
     getData();
-  }, [castId]);
+  }, [id]);
 
   const location = useLocation();
   console.log(location.pathname);
@@ -46,7 +46,7 @@ const CastDetails = () => {
       ) : (
         <>
           <div className={css.imgWrap}>
-            <Link to={`/cast/${castId}`}>
+            <Link to={`/cast/${id}`}>
               {data.profile_path ? (
                 <img
                   className={css.img}

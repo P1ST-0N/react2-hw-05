@@ -21,7 +21,7 @@ const RouteSection = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/cast/:castId" element={<CastDetails />} />
+        <Route path="/cast/:id" element={<CastDetails />} />
         <Route path="/movies/:id" element={<MovieDetailsPage />}>
           <Route path="cast" element={<MovieCast />} />
 
