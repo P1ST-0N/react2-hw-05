@@ -6,6 +6,10 @@ const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
 const MovieDetailsPage = lazy(() =>
   import("../../pages/MovieDetailsPage/MovieDetailsPage")
 );
+const CastDetails = lazy(() =>
+  import("../../components/CastDetails/CastDetails")
+);
+const MovieCast = lazy(() => import("../../components/MovieCast/MovieCast"));
 
 const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
@@ -13,11 +17,16 @@ const NotFoundPage = lazy(() =>
 
 const RouteSection = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:id" element={<MovieDetailsPage />} />
+        <Route path="/cast/:castId" element={<CastDetails />} />
+        <Route path="/movies/:id" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+
+          {/* <Route /> */}
+        </Route>
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

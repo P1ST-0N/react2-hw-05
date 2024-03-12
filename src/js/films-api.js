@@ -47,3 +47,18 @@ export const getFilmsSearch = async (query, page = 1) => {
     console.log(error.message);
   }
 };
+
+export const getPersonDetails = async (id) => {
+  const url = `https://api.themoviedb.org/3/person/${id}?language=en-US`;
+  const params = {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+    },
+  };
+  try {
+    const response = await axios.get(url, params);
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
