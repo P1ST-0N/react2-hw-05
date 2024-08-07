@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 import style from "./MovieCast.module.css";
 
 import { getFilmsDetails } from "../../js/films-api";
@@ -11,6 +13,8 @@ const MovieCast = () => {
   const { id } = useParams();
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleClick = async () => {
@@ -37,9 +41,15 @@ const MovieCast = () => {
       {credits && (
         <ul className={style.castList}>
           {credits.map((cast) => (
-            <li className={style.castItem} key={cast.id}>
-              <MovieCastItem dataCast={cast} />
-            </li>
+            <Link
+              to={`/cast/${cast.id}`}
+              state={{ from: location }}
+              key={cast.id}
+            >
+              <li className={style.castItem}>
+                <MovieCastItem dataCast={cast} />
+              </li>
+            </Link>
           ))}
         </ul>
       )}

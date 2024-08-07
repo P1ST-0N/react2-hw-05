@@ -37,8 +37,8 @@ const MovieCastItem = ({ dataCast: { profile_path, name, character } }) => {
         className={style.castImg}
         src={profile_path ? urlImg : imgNotFound}
         alt={name}
-        width="200"
-        height="300"
+        // width="200"
+        // height="300"
       />
       <div className={style.castItemThumb}>
         <h3 className={style.castItemTitle}>{name}</h3>

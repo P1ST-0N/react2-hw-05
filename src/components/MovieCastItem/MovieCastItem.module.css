@@ -20,8 +20,8 @@
 }
 
 .castImg {
-    width: 200px;
-    height: 250px;
+    width: 200vw;
+    height: 100vh;
 }
 
 @media screen and (min-width: 768px) {
